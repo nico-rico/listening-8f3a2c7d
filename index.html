@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ja">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>福岡県公立高校入試　英語リスニング練習【お試し版】</title>
+<style>
+:root{
+  --paper:#E9EBEE; --card:#FFF; --ink:#16233A; --ai:#26496B; --shu:#C63A28;
+  --midori:#2A7A57; --muted:#6C7583; --lamp:#E39B33; --line:#D3D9E0; --tint:#EEF3F8;
+  --mincho:"Yu Mincho","YuMincho","Hiragino Mincho ProN","Noto Serif JP",serif;
+  --gothic:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",system-ui,sans-serif;
+  --en:Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--gothic);-webkit-text-size-adjust:100%}
+.wrap{max-width:840px;margin:0 auto;padding:20px 16px 92px}
+header{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:18px}
+h1{font-family:var(--mincho);font-size:25px;font-weight:600;margin:0;letter-spacing:.06em;line-height:1.35}
+.sub{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.7}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:14px;margin-bottom:14px}
+.panel h2{font-size:12px;letter-spacing:.1em;color:var(--muted);margin:0 0 10px;font-weight:600}
+.row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:flex-end}
+label.f{font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+select,input[type=range]{font-family:var(--gothic);font-size:13px;padding:5px 6px;border:1px solid var(--line);
+  border-radius:3px;background:#fff;color:var(--ink);max-width:230px}
+input[type=range]{padding:0;border:none;width:130px}
+.chk{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer}
+.mini{font-size:12px;padding:6px 12px;border:1px solid var(--line);background:#fff;border-radius:3px;cursor:pointer;
+  font-family:var(--gothic);color:var(--ink)}
+.setbar{background:var(--ink);color:#fff;border-radius:4px;padding:12px 14px;margin-bottom:16px;
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.setbar select{background:#22314b;color:#fff;border:1px solid #5b6b85;max-width:100%;flex:1;min-width:180px}
+/* iOSのネイティブ選択リストは白背景。option に色を明示しないと白文字で見えなくなる */
+select option{background:#fff;color:#16233A}
+.setbar select option{background:#fff;color:#16233A}
+.setbar .theme{font-family:var(--mincho);font-size:15px;letter-spacing:.06em}
+.setbar button{font-size:12px;padding:6px 12px;border-radius:3px;border:1px solid #5b6b85;background:#22314b;color:#fff;cursor:pointer;font-family:var(--gothic)}
+.block{background:var(--card);border:1px solid var(--line);border-radius:4px;margin-bottom:18px;overflow:hidden}
+.bhead{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,#fbfcfd,#f2f5f8)}
+.bno{font-family:var(--mincho);font-size:17px;letter-spacing:.1em}
+.btag{font-size:11px;border:1px solid var(--ai);color:var(--ai);border-radius:2px;padding:2px 6px}
+.bpts{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--shu)}
+.bdesc{padding:12px 14px;font-size:13px;line-height:1.8;color:#33405a;border-bottom:1px solid var(--line)}
+.air{display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--ink);color:#e8ecf1;flex-wrap:wrap}
+.lamp{width:11px;height:11px;border-radius:50%;background:#3d4b63;flex:none}
+.air.on .lamp{background:var(--lamp);box-shadow:0 0 0 0 rgba(227,155,51,.7);animation:pulse 1.4s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(227,155,51,0)}100%{box-shadow:0 0 0 0 rgba(227,155,51,0)}}
+.airtxt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;flex:1;min-width:120px}
+.air button{font-family:var(--gothic);font-size:12.5px;padding:6px 14px;border-radius:3px;cursor:pointer;
+  border:1px solid #5b6b85;background:#22314b;color:#e8ecf1}
+.air button.play{background:var(--lamp);border-color:var(--lamp);color:#241a05;font-weight:600}
+.qs{padding:6px 14px 14px}
+.q{padding:12px 0;border-bottom:1px dashed var(--line)}
+.q:last-child{border-bottom:0}
+.qtitle{font-size:13.5px;font-weight:600;margin-bottom:9px;display:flex;gap:8px;align-items:baseline;line-height:1.6}
+.qnum{font-family:var(--mono);font-size:11px;color:#fff;background:var(--ai);padding:2px 7px;border-radius:2px;flex:none}
+.vis{border:1px solid var(--line);border-radius:3px;padding:9px 11px;margin-bottom:10px;background:#f6f9fb}
+.vis table{width:100%;border-collapse:collapse;font-size:13px}
+.vis th,.vis td{border:1px solid var(--line);padding:5px 9px;text-align:left}
+.vis th{background:#e9eff5;font-weight:600;white-space:nowrap}
+.vis .cap{font-size:11px;color:var(--muted);margin-bottom:6px}
+.choices{display:flex;flex-direction:column;gap:6px}
+.choices button{text-align:left;font-family:var(--gothic);font-size:14px;padding:9px 12px;border:1px solid var(--line);
+  background:#fff;border-radius:3px;cursor:pointer;line-height:1.55;color:var(--ink);position:relative}
+.choices button .lt{font-family:var(--mincho);margin-right:9px;color:var(--ai)}
+.choices button .en{font-family:var(--en)}
+.choices button[aria-pressed=true]{border-color:var(--ai);background:var(--tint);box-shadow:inset 3px 0 0 var(--ai)}
+.choices button.correct{border-color:var(--midori);background:#eef7f2}
+.choices button.wrong{border-color:var(--shu);background:#fdf0ee}
+.mark{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:20px;font-weight:700;color:var(--shu)}
+.mark.ok{color:var(--midori)}
+.hidden-choices{font-size:12px;color:var(--muted)}
+.hidden-choices .letters{display:flex;gap:8px;margin-top:6px}
+.hidden-choices .letters button{flex:1;font-family:var(--mincho);font-size:16px;padding:10px 0;
+  border:1px solid var(--line);background:#fff;border-radius:3px;cursor:pointer;position:relative}
+.hidden-choices .letters button[aria-pressed=true]{border-color:var(--ai);background:var(--tint)}
+.hidden-choices .letters button.correct{border-color:var(--midori);background:#eef7f2}
+.hidden-choices .letters button.wrong{border-color:var(--shu);background:#fdf0ee}
+.blankline{font-family:var(--en);font-size:15px;line-height:2.2}
+.blankline input{font-family:var(--en);font-size:15px;width:120px;padding:3px 6px;border:1px solid var(--line);
+  border-radius:3px;text-align:center;color:var(--ink)}
+.blankline input.correct{border-color:var(--midori);background:#eef7f2}
+.blankline input.wrong{border-color:var(--shu);background:#fdf0ee}
+.bansw{font-size:12.5px;color:var(--muted);margin-top:4px}
+.bansw .en{font-family:var(--en);color:var(--shu)}
+textarea{width:100%;font-family:var(--en);font-size:15px;padding:9px;border:1px solid var(--line);
+  border-radius:3px;min-height:54px;resize:vertical;color:var(--ink)}
+.wc{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px}
+.wc.ng{color:var(--shu)}
+.selfg{display:flex;gap:6px;margin-top:8px;align-items:center;flex-wrap:wrap}
+.selfg span{font-size:11.5px;color:var(--muted)}
+.selfg button{font-size:14px;padding:4px 14px;border:1px solid var(--line);background:#fff;
+  border-radius:3px;cursor:pointer;font-family:var(--mincho);color:var(--ink)}
+.selfg button[aria-pressed=true]{border-color:var(--ai);background:var(--tint);font-weight:700}
+.sample{font-size:12.5px;margin-top:6px;line-height:1.7}
+.sample .en{font-family:var(--en);color:var(--shu)}
+.bfoot{display:flex;gap:8px;flex-wrap:wrap;padding:0 14px 14px;align-items:center}
+.bfoot button{font-family:var(--gothic);font-size:12.5px;padding:7px 14px;border-radius:3px;cursor:pointer;
+  border:1px solid var(--ink);background:#fff;color:var(--ink)}
+.bfoot button.primary{background:var(--ink);color:#fff}
+.score{font-family:var(--mono);font-size:12px;color:var(--shu);margin-left:auto}
+.script{display:none;border-top:1px solid var(--line);background:#fafbfc;padding:14px}
+.script.show{display:block}
+.script h3{font-size:12px;letter-spacing:.1em;color:var(--muted);margin:0 0 8px;font-weight:600}
+.sline{display:grid;grid-template-columns:56px 1fr;gap:10px;padding:5px 0;font-size:13.5px;line-height:1.7}
+.sp{font-family:var(--mono);font-size:10.5px;color:var(--ai);padding-top:4px}
+.sline .en{font-family:var(--en)}
+.sline .ja{color:var(--muted);font-size:12.5px;margin-top:2px}
+.ans{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:13px;line-height:1.85}
+.ans b{color:var(--shu)}
+.ans .en{font-family:var(--en)}
+.warn{background:#fdf0ee;border:1px solid var(--shu);color:#7d2517;padding:12px;border-radius:4px;
+  font-size:13px;line-height:1.7;margin-bottom:14px;display:none}
+.warn.show{display:block}
+.total{position:sticky;bottom:0;background:var(--ink);color:#fff;padding:11px 14px;border-radius:4px;
+  font-family:var(--mono);font-size:12.5px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.total button{font-family:var(--gothic);font-size:12px;padding:5px 12px;border-radius:3px;border:1px solid #5b6b85;
+  background:#22314b;color:#fff;cursor:pointer;flex:none}
+.choices button:disabled,.hidden-choices .letters button:disabled{opacity:1;cursor:default;color:var(--ink)}
+.extract{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.extract input{font-family:var(--en);font-size:15px;width:62%;max-width:270px;padding:5px 8px;
+  border:1px solid var(--line);border-radius:3px;color:var(--ink)}
+.extract input.correct{border-color:var(--midori);background:#eef7f2}
+.extract input.wrong{border-color:var(--shu);background:#fdf0ee}
+.extract input:disabled{opacity:1;color:var(--ink);-webkit-text-fill-color:var(--ink);cursor:default}
+.blankline input:disabled{opacity:1;color:var(--ink);-webkit-text-fill-color:var(--ink);cursor:default}
+.bfoot button:disabled{opacity:.4;cursor:default}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--ai);outline-offset:2px}
+@media (max-width:520px){h1{font-size:20px}.airtxt{flex-basis:100%;order:3}.blankline input{width:96px}
+  /* iOSは16px未満の入力欄をタップすると画面が拡大するため大きくする */
+  select,input[type=text],textarea{font-size:16px}
+  .setbar select{flex-basis:100%;min-width:0}
+  .extract input{width:100%;max-width:none}}
+@media (prefers-reduced-motion:reduce){.air.on .lamp{animation:none}}
+.trialbar{background:linear-gradient(90deg,#2f6f4f,#3a7d8c);color:#fff;font-size:12.5px;
+  padding:7px 12px;border-radius:4px;margin:10px 0 12px;letter-spacing:.03em}
+.cta{margin-top:20px;padding:18px 16px;border:2px solid var(--ai);border-radius:6px;background:#f3f7fb}
+.cta h3{margin:0 0 8px;font-family:var(--mincho);font-size:16px;color:var(--ink);letter-spacing:.04em}
+.cta p{margin:0 0 10px;font-size:13px;line-height:1.9;color:#33405a}
+.cta ul{margin:0 0 12px;padding-left:1.2em;font-size:12.5px;line-height:1.9;color:#33405a}
+.cta a.btn{display:inline-block;background:var(--ai);color:#fff;text-decoration:none;
+  padding:11px 22px;border-radius:4px;font-size:14px;letter-spacing:.05em}
+.foot{margin-top:22px;padding:16px 14px 8px;border-top:1px solid var(--line);font-size:11.5px;
+  color:var(--muted);line-height:1.85}
+.foot-t{font-family:var(--mincho);font-size:13px;color:var(--ink);letter-spacing:.04em}
+.foot h4{font-size:11.5px;margin:14px 0 4px;color:var(--ink);font-weight:600}
+.foot ul{margin:0;padding-left:1.2em}
+.foot li{margin-bottom:3px}
+.foot b{color:#33405a}
+@media print{.panel,.setbar,.air,.bfoot,.total,.warn{display:none!important}
+  body{background:#fff}.script{display:block!important;page-break-inside:avoid}
+  .block{page-break-inside:avoid;border:1px solid #999}
+  .foot{page-break-inside:avoid}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>福岡県公立高校入試　英語リスニング練習</h1>
+    <div class="trialbar">お試し版（3セット）　全21セット版は note でご案内しています</div>
+    <div class="sub">問題1は1回読み、問題2〜4は2回読み／1セット20点・約15分<br>
+      問題2は表や図から抜き出して記入、問題4は〈問1〉(1)記号・(2)（　）に1語ずつ・(3)6語以上、〈問2〉5語以上（入試と同じ4部構成）</div>
+  </header>
+
+  <div class="warn" id="warn"></div>
+
+  <div class="panel">
+    <h2>音声の設定</h2>
+    <div class="row">
+      <label class="f">話し手A<select id="vA"></select></label>
+      <label class="f">話し手B<select id="vB"></select></label>
+      <label class="f">読む速さ <span id="rateV" style="font-family:var(--mono)">0.95</span>
+        <input type="range" id="rate" min="0.6" max="1.2" step="0.05" value="0.95"></label>
+      <button class="mini" id="test">音が出るか試す</button>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <label class="chk"><input type="checkbox" id="hideCh"> 問題1の選択肢を画面に出さない（本番と同じ）</label>
+    </div>
+    <div id="saveNote" style="font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.6">
+      ※解答・点数・設定は、この端末のブラウザに自動保存されます（外部には送信されません）。消したいときは画面下の「やり直す」を押してください。
+    </div>
+  </div>
+
+  <div class="setbar">
+    <span class="theme">セット</span>
+    <select id="setSel"></select>
+    <button id="rand">ランダム</button>
+    <button id="prev">前へ</button>
+    <button id="next">次へ</button>
+  </div>
+
+  <div id="app"></div>
+
+  <div class="total">
+    <span id="totalTxt"></span>
+    <button id="resetAll">やり直す</button>
+  </div>
+
+  <div class="cta">
+    <h3>お試し版はここまでです</h3>
+    <p>気に入っていただけたら、全21セット版をどうぞ。同じ画面のまま、問題が21セット・252問に増えます。</p>
+    <ul>
+      <li>全21セット・252問（お試し版の7倍）</li>
+      <li>放送文の英文と和訳、全問の解説つき</li>
+      <li>1日1セットで3週間分</li>
+      <li>解答は自動保存。どこまで解いたかが残ります</li>
+    </ul>
+    <a class="btn" href="ここにnote記事のURLを貼ってください">全21セット版を見る（note）</a>
+  </div>
+
+  <footer class="foot">
+    <div class="foot-t">福岡県公立高校入試　英語リスニング練習【お試し版】　v2.0</div>
+    <div class="foot-t">作成：nico_rico</div>
+    <h4>ご利用にあたって</h4>
+    <ul>
+      <li>本教材は、福岡県公立高等学校入学者選抜（英語リスニング）の<b>出題形式を参考に独自に作成したオリジナル問題</b>です。実際の入試問題の文章・音声の転載ではありません。</li>
+      <li>福岡県、福岡県教育委員会その他の公的機関とは一切関係がありません。</li>
+      <li>配点は本番と同じ1セット20点にそろえた目安です。小問ごとの配点は公表資料と異なる場合があります。</li>
+      <li>このお試し版は自由にご覧いただけます。内容の無断転載・再配布はご遠慮ください。</li>
+      <li>内容には万全を期していますが、誤りや不具合を見つけた場合はご連絡いただけると助かります。</li>
+    </ul>
+    <h4>動作環境と使い方</h4>
+    <ul>
+      <li>推奨ブラウザは、Windows・macOS・Android は Google Chrome、iPhone・iPad は Safari の最新版です。</li>
+      <li>音声は<b>お使いの端末の読み上げ機能</b>を使って再生します。インターネット接続や音声ファイルのダウンロードは不要ですが、端末に英語の音声が入っていない場合は再生できません。<b>はじめに「音が出るか試す」を押して確認してください。</b></li>
+      <li>声の種類や読む速さは画面上部で変えられます。聞き取りにくいときは速さを 0.8 前後に下げてみてください。</li>
+      <li>問題1は本番と同じく<b>1回だけ</b>読まれます。選択肢も放送だけで流す本番形式にしたいときは「問題1の選択肢を画面に出さない」にチェックを入れてください。</li>
+      <li>解答・点数・設定は<b>お使いの端末のブラウザ内に自動保存</b>されます。外部へ送信されることはありません。別の端末やブラウザには引き継がれません。</li>
+      <li>ブラウザの閲覧履歴やサイトデータを消すと、保存された解答も消えます。</li>
+      <li>「放送文と解説」を開いた状態で印刷すると、放送文（英文・和訳）と解説が資料として印刷できます。</li>
+    </ul>
+  </footer>
+</div>
+
+<script>
+"use strict";
+const SETS = [{"t":"道案内とバス","b":[{"no":"問題1","tag":"1回だけ読まれます","reads":1,"speakChoices":true,"desc":"それぞれの英語のあとに、ア、イ、ウ、エの英語が読まれます。会話が成り立つように、最も適当なものを1つ選びなさい。放送は1回だけです。","shared":null,"items":[{"label":"問1","kind":"select","qja":"会話が成り立つように、最も適当な応答を1つ選びなさい。","spokenQ":null,"choices":["Yes, I did.","At the bus stop.","It is a good bus.","In about ten minutes."],"ans":3,"expl":"何時＝時刻をたずねられているので、時間で答える。場所や過去の答えは合わない。","pts":2,"table":"","lines":[{"sp":"A","en":"Excuse me. Do you know what time the next bus comes?","ja":"すみません。次のバスが何時に来るか知っていますか。"}]},{"label":"問2","kind":"select","qja":"会話が成り立つように、最も適当な応答を1つ選びなさい。","spokenQ":null,"choices":["Twice a week.","Since I was ten years old.","It is very easy.","At school."],"ans":1,"expl":"How long（期間）には since / for で答える。頻度や場所を答えるものは合わない。","pts":2,"table":"","lines":[{"sp":"A","en":"Your English is very good. How long have you studied it?","ja":"英語が上手ですね。どのくらい勉強しているのですか。"}]},{"label":"問3","kind":"select","qja":"会話が成り立つように、最も適当な応答を1つ選びなさい。","spokenQ":null,"choices":["I was taking a bath.","I will call you tonight.","Yes, I answered it.","I don't have a phone."],"ans":0,"expl":"What were you doing?（過去進行形）には過去進行形で答える。","pts":2,"table":"","lines":[{"sp":"A","en":"I called you last night, but you didn't answer. What were you doing?","ja":"昨夜電話したけれど出なかったね。何をしていたの。"}]}]},{"no":"問題2","tag":"2回読まれます","reads":2,"speakChoices":false,"repeatEach":true,"desc":"表や図を見て、質問に答える問題です。答えとして最も適当なものを、表や図の中から抜き出して答えなさい。（1）（2）はそれぞれ2回読まれます。","shared":null,"items":[{"label":"(1)","kind":"extract","qja":"2人はどのバスに乗りますか。表の中から抜き出して答えなさい。","spokenQ":"Question. Which bus will they take?","answer":"Bus 3|3","expl":"動物園行きは Bus 1 と Bus 3。9時30分に集まるので9時10分発には間に合わず、9時45分発の Bus 3 になる。","pts":1,"table":"<table><tr><th>Bus</th><th>For</th><th>Leaves</th></tr><tr><td>Bus 1</td><td>the Zoo</td><td>9:10</td></tr><tr><td>Bus 2</td><td>the Museum</td><td>9:25</td></tr><tr><td>Bus 3</td><td>the Zoo</td><td>9:45</td></tr><tr><td>Bus 4</td><td>the Museum</td><td>10:00</td></tr></table>","lines":[{"sp":"A","en":"I want to go to the zoo with my friend Ken.","ja":"友達のケンと動物園に行きたいです。"},{"sp":"A","en":"Ken will come to the bus stop at nine thirty, so we can't take the first bus for the zoo.","ja":"ケンは9時30分にバス停に来るので、動物園行きの最初のバスには乗れません。"}]},{"label":"(2)","kind":"extract","qja":"エミはどこへ行きますか。表の中から抜き出して答えなさい。","spokenQ":"Question. Where will Emi go?","answer":"the Museum|Museum","expl":"往復なので運賃は2倍。動物園は600円、博物館は500円でちょうど払える。公園は360円だが、いちばん高いのは博物館。","pts":1,"table":"<table><tr><th>Place</th><th>One way</th></tr><tr><td>the Zoo</td><td>300 yen</td></tr><tr><td>the Museum</td><td>250 yen</td></tr><tr><td>the Park</td><td>180 yen</td></tr><tr><td>the Airport</td><td>600 yen</td></tr></table>","lines":[{"sp":"A","en":"Emi has five hundred yen today.","ja":"エミは今日500円持っています。"},{"sp":"A","en":"She will go to one place by bus and come back, so she has to pay the fare two times.","ja":"バスで1か所へ行って帰ってくるので、運賃を2回払わなければなりません。"},{"sp":"A","en":"She wants to visit the most expensive place she can.","ja":"行ける中でいちばん高い場所へ行きたいと思っています。"}]}]},{"no":"問題3","tag":"2回読まれます","reads":2,"speakChoices":false,"desc":"対話を聞いて、(1)、(2)の質問の答えとして最も適当なものを1つずつ選びなさい。(3)は対話の内容に合うものを1つ選びなさい。","shared":[{"sp":"Emma","en":"Hi, Takuya. I heard you joined a volunteer activity last Sunday. How was it?","ja":"タクヤ、先週の日曜にボランティアに参加したんだって。どうだった。"},{"sp":"Takuya","en":"It was great, Emma. About thirty students cleaned the beach near our school.","ja":"よかったよ。約30人の生徒で学校の近くの浜を清掃したんだ。"},{"sp":"Emma","en":"Thirty? That's a lot. Was it hard work?","ja":"30人。多いね。大変だった。"},{"sp":"Takuya","en":"Yes, we worked for three hours. But we found many kinds of trash, and I learned a lot.","ja":"うん、3時間ね。でもいろいろな種類のごみが見つかって、たくさん学べたよ。"},{"sp":"Emma","en":"What did you learn?","ja":"何を学んだの。"},{"sp":"Takuya","en":"I learned that most of the trash came from people's daily life. Now I always bring my own bag when I go shopping.","ja":"ごみの多くが人々の日常生活から出ていると知ったんだ。今は買い物に行くときいつもマイバッグを持っていくよ。"},{"sp":"Emma","en":"That's wonderful. I want to join next time.","ja":"すばらしいね。次は私も参加したい。"},{"sp":"Takuya","en":"Sure. The next activity will be held on the first Sunday of August.","ja":"もちろん。次の活動は8月の第1日曜だよ。"}],"items":[{"label":"(1)","kind":"select","qja":"何人の生徒が浜を清掃しましたか。","spokenQ":"Question one. How many students cleaned the beach?","choices":["About three.","About thirteen.","About thirty.","About three hundred."],"ans":2,"expl":"thirteen と thirty の聞き分け。thirty は前にアクセントがある。","pts":2,"table":""},{"label":"(2)","kind":"select","qja":"タクヤは買い物に行くとき、いつも何をしますか。","spokenQ":"Question two. What does Takuya always do when he goes shopping?","choices":["He brings his own bag.","He buys a new bag.","He cleans the beach.","He goes with Emma."],"ans":0,"expl":"bring my own bag を he に置きかえた形。","pts":2,"table":""},{"label":"(3)","kind":"select","qja":"2人の対話の内容に合うものを1つ選びなさい。","spokenQ":null,"choices":["Takuya cleaned the beach alone for three hours.","Emma joined the volunteer activity with Takuya.","Takuya learned that most of the trash came from the sea.","The next volunteer activity will be held in August."],"ans":3,"expl":"最後の1文 the first Sunday of August が根拠。ほかは about thirty students、I want to join next time などと合わない。","pts":2,"table":""}]},{"no":"問題4","tag":"2回読まれます","reads":2,"speakChoices":false,"desc":"英文を聞いて、質問に答える問題です。〈問1〉(1)は記号、(2)は（　）にそれぞれ1語の英語、(3)は6語以上の英語で答えなさい。〈問2〉は最後に読まれる質問に、5語以上の英語で書きなさい。","shared":[{"sp":"Staff","en":"Hello, everyone. Welcome to our city library. Today I'll tell you three things about this library.","ja":"市立図書館へようこそ。今日はこの図書館について3つお話しします。"},{"sp":"Staff","en":"First, you can borrow ten books at one time, and you can keep them for two weeks.","ja":"1つめ、一度に10冊借りられ、2週間手元に置けます。"},{"sp":"Staff","en":"Second, we have a study room on the second floor. You can use computers there.","ja":"2つめ、2階に学習室があります。そこでコンピューターが使えます。"},{"sp":"Staff","en":"Third, every Saturday morning, we read English picture books to children.","ja":"3つめ、毎週土曜の午前に子どもたちへ英語の絵本を読みます。"},{"sp":"Staff","en":"If you want to help us, please tell the staff at the front desk. Thank you.","ja":"手伝いたい方は受付の職員にお伝えください。"}],"items":[{"label":"問1(1)","kind":"select","qja":"一度に何冊借りることができますか。","spokenQ":"Question one. How many books can people borrow at one time?","choices":["Two.","Twelve.","Ten.","Fifty."],"ans":2,"expl":"ten books at one time。two weeks は借りられる期間なので混同しない。","pts":2,"table":""},{"label":"問1(2)","kind":"blank","qja":"学習室では何ができますか。（　）内にそれぞれ1語の英語を書きなさい。","spokenQ":"Question two. What can people do in the study room?","sent":"They can use ___ in the study room on the ___ floor.","blanks":["computers","second|2nd"],"expl":"use computers と on the second floor を1語ずつ入れる。","pts":2,"table":""},{"label":"問1(3)","kind":"write","qja":"職員は毎週土曜の午前に何をしますか。6語以上の英語で答えなさい。","spokenQ":"Question three. What do the staff do every Saturday morning?","sample":"They read English picture books to children.","expl":"we → they に直す。read English picture books をそのまま使えばよい。","pts":3,"minw":6,"table":""},{"label":"問2","kind":"write","qja":"あなたは図書館で何をするのが好きですか。5語以上の英語で書きなさい。","spokenQ":"Question. What do you like to do at a library?","sample":"I like to read history books there.","expl":"I like to ... の形にすれば主語と動詞のある正しい文になる。","pts":3,"minw":5,"table":""}]}]},{"t":"買い物と予定","b":[{"no":"問題1","tag":"1回だけ読まれます","reads":1,"speakChoices":true,"desc":"それぞれの英語のあとに、ア、イ、ウ、エの英語が読まれます。会話が成り立つように、最も適当なものを1つ選びなさい。放送は1回だけです。","shared":null,"items":[{"label":"問1","kind":"select","qja":"会話が成り立つように、最も適当な応答を1つ選びなさい。","spokenQ":null,"choices":["Yes, it is.","It was sunny yesterday.","I like rainy days.","No, I didn't."],"ans":3,"expl":"Did you ...? には did / didn't で答える。","pts":2,"table":"","lines":[{"sp":"A","en":"It's raining hard. Did you bring an umbrella?","ja":"雨が強いね。かさを持ってきた。"}]},{"label":"問2","kind":"select","qja":"会話が成り立つように、最も適当な応答を1つ選びなさい。","spokenQ":null,"choices":["I'm fine, thank you.","Of course.","Here you are.","You're welcome."],"ans":1,"expl":"依頼への返事を選ぶ。お礼への返事や物を渡すときの表現は合わない。","pts":2,"table":"","lines":[{"sp":"A","en":"Could you help me carry these boxes to the classroom?","ja":"この箱を教室まで運ぶのを手伝ってくれますか。"}]},{"label":"問3","kind":"select","qja":"会話が成り立つように、最も適当な応答を1つ選びなさい。","spokenQ":null,"choices":["No, but I want to go someday.","She lives in Tokyo.","Yes, I'm going.","It takes two hours."],"ans":0,"expl":"Have you ever been ...?（経験）への答え方。","pts":2,"table":"","lines":[{"sp":"A","en":"I'm going to visit my grandmother in Osaka next week. Have you ever been there?","ja":"来週、大阪の祖母を訪ねるんだ。行ったことある。"}]}]},{"no":"問題2","tag":"2回読まれます","reads":2,"speakChoices":false,"repeatEach":true,"desc":"表や図を見て、質問に答える問題です。答えとして最も適当なものを、表や図の中から抜き出して答えなさい。（1）（2）はそれぞれ2回読まれます。","shared":null,"items":[{"label":"(1)","kind":"extract","qja":"彼女はどの店に行くことができますか。表の中から抜き出して答えなさい。","spokenQ":"Question. Which shop can Mika go to?","answer":"Cake Shop|the Cake Shop|Cake shop","expl":"8時30分は20:30。本屋は20:00、花屋は18:00、パン屋は19:00に閉まる。21:00まで開いているのはケーキ屋だけ。","pts":1,"table":"<table><tr><th>Shop</th><th>Open</th></tr><tr><td>Bookstore</td><td>10:00 - 20:00</td></tr><tr><td>Flower Shop</td><td>9:00 - 18:00</td></tr><tr><td>Bakery</td><td>7:00 - 19:00</td></tr><tr><td>Cake Shop</td><td>10:00 - 21:00</td></tr></table>","lines":[{"sp":"A","en":"Mika will get to the shopping street at eight thirty in the evening.","ja":"ミカは夜の8時30分に商店街に着きます。"},{"sp":"A","en":"She wants to buy something for her sister today.","ja":"今日、妹に何か買いたいと思っています。"}]},{"label":"(2)","kind":"extract","qja":"彼はどのTシャツを買いますか。表の中から抜き出して答えなさい。","spokenQ":"Question. Which T-shirt will Sota buy?","answer":"Blue|the Blue T-shirt|Blue T-shirt","expl":"300円引きなので白900円・青1,200円・緑1,500円・黒1,700円。1,400円で買えるのは白と青で、高いほうは青。","pts":1,"table":"<table><tr><th>T-shirt</th><th>Price</th></tr><tr><td>White</td><td>1,200 yen</td></tr><tr><td>Blue</td><td>1,500 yen</td></tr><tr><td>Green</td><td>1,800 yen</td></tr><tr><td>Black</td><td>2,000 yen</td></tr></table><div style='margin-top:6px;font-family:Georgia,serif'>Today: 300 yen off every T-shirt</div>","lines":[{"sp":"A","en":"Sota has one thousand four hundred yen.","ja":"ソウタは1,400円持っています。"},{"sp":"A","en":"He wants to buy the most expensive T-shirt he can buy today.","ja":"今日買える中でいちばん高いTシャツを買いたいと思っています。"}]}]},{"no":"問題3","tag":"2回読まれます","reads":2,"speakChoices":false,"desc":"対話を聞いて、(1)、(2)の質問の答えとして最も適当なものを1つずつ選びなさい。(3)は対話の内容に合うものを1つ選びなさい。","shared":[{"sp":"Kate","en":"Good morning, Riku. You look sleepy.","ja":"おはよう、リク。眠そうだね。"},{"sp":"Riku","en":"Good morning, Kate. I studied until midnight yesterday.","ja":"おはよう、ケイト。昨日は夜中まで勉強したんだ。"},{"sp":"Kate","en":"Really? Why?","ja":"本当。どうして。"},{"sp":"Riku","en":"I'm going to take an English test next Sunday. I want to study in Australia in the future.","ja":"次の日曜に英語のテストを受けるんだ。将来オーストラリアで学びたくてね。"},{"sp":"Kate","en":"That's a great goal. But sleeping is also important. What time do you usually go to bed?","ja":"いい目標だね。でも睡眠も大切よ。ふだんは何時に寝るの。"},{"sp":"Riku","en":"Usually at eleven, but this month I go to bed at one.","ja":"ふだんは11時、でも今月は1時に寝ているよ。"},{"sp":"Kate","en":"That's too late. Why don't you get up early and study in the morning instead?","ja":"遅すぎるわ。代わりに早起きして朝に勉強したら。"},{"sp":"Riku","en":"That's a good idea. I'll try it from tomorrow.","ja":"いい考えだね。明日からやってみるよ。"}],"items":[{"label":"(1)","kind":"select","qja":"リクはいつ英語のテストを受けますか。","spokenQ":"Question one. When is Riku going to take the English test?","choices":["Next Sunday.","Tomorrow.","Next month.","Next year."],"ans":0,"expl":"next Sunday を聞き取る。","pts":2,"table":""},{"label":"(2)","kind":"select","qja":"リクはふだん何時に寝ますか。","spokenQ":"Question two. What time does Riku usually go to bed?","choices":["At twelve.","At eleven.","At one.","At six."],"ans":1,"expl":"usually と this month の区別。1時は今月だけ。","pts":2,"table":""},{"label":"(3)","kind":"select","qja":"2人の対話の内容に合うものを1つ選びなさい。","spokenQ":null,"choices":["Riku wants to study in Canada in the future.","Kate told Riku to study in the morning instead of at night.","Kate studied until midnight yesterday.","Riku goes to bed at eleven this month."],"ans":1,"expl":"Why don't you ...? は提案。Australia、勉強したのは Riku、今月は1時、という点で他は合わない。","pts":2,"table":""}]},{"no":"問題4","tag":"2回読まれます","reads":2,"speakChoices":false,"desc":"英文を聞いて、質問に答える問題です。〈問1〉(1)は記号、(2)は（　）にそれぞれ1語の英語、(3)は6語以上の英語で答えなさい。〈問2〉は最後に読まれる質問に、5語以上の英語で書きなさい。","shared":[{"sp":"Teacher","en":"Hello, class. Next month, we're going to have a school festival.","ja":"来月、学校祭があります。"},{"sp":"Teacher","en":"Today I'll explain what our class will do. We decided to make a short movie about our school life.","ja":"今日はクラスで何をするか説明します。学校生活についての短い映画を作ることに決めました。"},{"sp":"Teacher","en":"We need three groups. The first group will write the story.","ja":"3つの班が必要です。1つめの班は物語を書きます。"},{"sp":"Teacher","en":"The second group will act in the movie, and the last group will make the music.","ja":"2つめの班は映画に出演し、最後の班は音楽を作ります。"},{"sp":"Teacher","en":"Please choose your group by this Friday. If you have any questions, come to the teachers' room after school.","ja":"今週の金曜までに班を選んでください。質問があれば放課後に職員室へ来てください。"}],"items":[{"label":"問1(1)","kind":"select","qja":"クラスは学校祭のために何を作りますか。","spokenQ":"Question one. What will the class make for the school festival?","choices":["A big poster.","A school newspaper.","A Japanese drama.","A short movie."],"ans":3,"expl":"make a short movie を聞き取る。","pts":2,"table":""},{"label":"問1(2)","kind":"blank","qja":"2つめの班は何をしますか。（　）内にそれぞれ1語の英語を書きなさい。","spokenQ":"Question two. What will the second group do?","sent":"They will ___ in the ___.","blanks":["act","movie"],"expl":"act in the movie をそのまま1語ずつ入れる。","pts":2,"table":""},{"label":"問1(3)","kind":"write","qja":"生徒はいつまでに班を選ばなければなりませんか。6語以上の英語で答えなさい。","spokenQ":"Question three. When do the students have to choose their group?","sample":"They have to choose their group by this Friday.","expl":"by this Friday を落とさない。your → their に直す。","pts":3,"minw":6,"table":""},{"label":"問2","kind":"write","qja":"あなたはどの班に入りたいですか。5語以上の英語で書きなさい。","spokenQ":"Question. Which group do you want to join?","sample":"I want to join the music group.","expl":"I want to join ... の形で書けば確実。","pts":3,"minw":5,"table":""}]}]},{"t":"天気と週末の予定","b":[{"no":"問題1","tag":"1回だけ読まれます","reads":1,"speakChoices":true,"desc":"それぞれの英語のあとに、ア、イ、ウ、エの英語が読まれます。会話が成り立つように、最も適当なものを1つ選びなさい。放送は1回だけです。","shared":null,"items":[{"label":"問1","kind":"select","qja":"会話が成り立つように、最も適当な応答を1つ選びなさい。","spokenQ":null,"choices":["I like clouds.","It rained yesterday.","Yes, I think so.","Yes, I do it."],"ans":2,"expl":"Do you think ...? には I think so / I don't think so で答える。","pts":2,"table":"","lines":[{"sp":"A","en":"Look at those dark clouds. Do you think it will rain this afternoon?","ja":"黒い雲を見て。午後は雨が降ると思う。"}]},{"label":"問2","kind":"select","qja":"会話が成り立つように、最も適当な応答を1つ選びなさい。","spokenQ":null,"choices":["It was really fun.","I'll go to the park.","Yes, it is.","Next Saturday."],"ans":0,"expl":"How was ...?（過去）には過去形で答える。","pts":2,"table":"","lines":[{"sp":"A","en":"How was your weekend, Mika?","ja":"ミカ、週末はどうだった。"}]},{"label":"問3","kind":"select","qja":"会話が成り立つように、最も適当な応答を1つ選びなさい。","spokenQ":null,"choices":["No, it isn't.","I went there last year.","It was very nice.","That sounds great."],"ans":3,"expl":"Shall we ...?（さそい）への返事。","pts":2,"table":"","lines":[{"sp":"A","en":"Shall we go hiking on Sunday if the weather is nice?","ja":"天気がよければ日曜にハイキングに行かない。"}]}]},{"no":"問題2","tag":"2回読まれます","reads":2,"speakChoices":false,"repeatEach":true,"desc":"表や図を見て、質問に答える問題です。答えとして最も適当なものを、表や図の中から抜き出して答えなさい。（1）（2）はそれぞれ2回読まれます。","shared":null,"items":[{"label":"(1)","kind":"extract","qja":"2人はどの市へ行きますか。表の中から抜き出して答えなさい。","spokenQ":"Question. Which city will they go to?","answer":"City C|C","expl":"土曜と日曜の両方が晴れなのは City C だけ。","pts":1,"table":"<table><tr><th>City</th><th>Saturday</th><th>Sunday</th></tr><tr><td>City A</td><td>Rainy</td><td>Sunny</td></tr><tr><td>City B</td><td>Sunny</td><td>Rainy</td></tr><tr><td>City C</td><td>Sunny</td><td>Sunny</td></tr><tr><td>City D</td><td>Cloudy</td><td>Cloudy</td></tr></table>","lines":[{"sp":"A","en":"Ken and his father are going to go hiking this weekend.","ja":"ケンと父は今週末ハイキングに行く予定です。"},{"sp":"A","en":"They will stay one night in the mountains, so they need two sunny days.","ja":"山で1泊するので、晴れの日が2日必要です。"}]},{"label":"(2)","kind":"extract","qja":"2人はいつ映画を見ますか。表の中から抜き出して答えなさい。","spokenQ":"Question. When will they see the movie?","answer":"Sunday morning|on Sunday morning","expl":"表で予定が入っていないのは日曜の午前だけ。","pts":1,"table":"<table><tr><th>Time</th><th>Plan</th></tr><tr><td>Saturday morning</td><td>Soccer game</td></tr><tr><td>Saturday afternoon</td><td>Piano lesson</td></tr><tr><td>Sunday morning</td><td>—</td></tr><tr><td>Sunday afternoon</td><td>Family dinner</td></tr></table>","lines":[{"sp":"A","en":"This is Aoi's plan for the weekend.","ja":"これはアオイの週末の予定です。"},{"sp":"A","en":"Her friend Emma wants to see a movie with her, but Aoi is free only once this weekend.","ja":"友達のエマが一緒に映画を見たがっていますが、アオイが空いているのは週末で1回だけです。"}]}]},{"no":"問題3","tag":"2回読まれます","reads":2,"speakChoices":false,"desc":"対話を聞いて、(1)、(2)の質問の答えとして最も適当なものを1つずつ選びなさい。(3)は対話の内容に合うものを1つ選びなさい。","shared":[{"sp":"Ann","en":"Hi, Sota. I hear your class went to Kyoto last week.","ja":"ソウタ、先週クラスで京都に行ったんだって。"},{"sp":"Sota","en":"Yes. We stayed there for two days.","ja":"うん。2日間いたよ。"},{"sp":"Ann","en":"What did you do?","ja":"何をしたの。"},{"sp":"Sota","en":"On the first day, we visited some old temples. On the second day, we tried making Japanese sweets.","ja":"1日目は古いお寺を訪ね、2日目は和菓子作りに挑戦したよ。"},{"sp":"Ann","en":"Sounds fun. Which did you like better?","ja":"楽しそう。どちらのほうが好きだった。"},{"sp":"Sota","en":"Making sweets was more interesting because I could take them home.","ja":"和菓子作りのほうがおもしろかった。家に持ち帰れたからね。"},{"sp":"Ann","en":"Did you take a lot of pictures?","ja":"写真はたくさん撮った。"},{"sp":"Sota","en":"I wanted to, but I forgot my camera. So my friend sent me some.","ja":"撮りたかったけどカメラを忘れたんだ。だから友達が送ってくれたよ。"}],"items":[{"label":"(1)","kind":"select","qja":"ソウタはどのくらい京都にいましたか。","spokenQ":"Question one. How long did Sota stay in Kyoto?","choices":["For one day.","For two days.","For three days.","For a week."],"ans":1,"expl":"stayed there for two days。","pts":2,"table":""},{"label":"(2)","kind":"select","qja":"ソウタはどちらのほうが好きでしたか。","spokenQ":"Question two. Which did Sota like better?","choices":["Making Japanese sweets.","Visiting old temples.","Taking pictures.","Eating lunch."],"ans":0,"expl":"was more interesting のあとに理由が続く。","pts":2,"table":""},{"label":"(3)","kind":"select","qja":"2人の対話の内容に合うものを1つ選びなさい。","spokenQ":null,"choices":["Sota visited old temples on the second day.","Sota took a lot of pictures in Kyoto.","Sota ate the Japanese sweets in Kyoto.","Sota's friend sent him some pictures because Sota forgot his camera."],"ans":3,"expl":"forgot my camera が理由。お寺は1日目、写真は撮っていない、和菓子は持ち帰った。","pts":2,"table":""}]},{"no":"問題4","tag":"2回読まれます","reads":2,"speakChoices":false,"desc":"英文を聞いて、質問に答える問題です。〈問1〉(1)は記号、(2)は（　）にそれぞれ1語の英語、(3)は6語以上の英語で答えなさい。〈問2〉は最後に読まれる質問に、5語以上の英語で書きなさい。","shared":[{"sp":"Teacher","en":"Good morning, everyone. I have some news about tomorrow's sports day.","ja":"明日の体育祭についてお知らせがあります。"},{"sp":"Teacher","en":"The weather report says it will rain in the morning, so we will start at one in the afternoon.","ja":"朝は雨の予報なので、午後1時に始めます。"},{"sp":"Teacher","en":"Please come to school at noon and bring your lunch.","ja":"正午に登校し、お弁当を持ってきてください。"},{"sp":"Teacher","en":"If it rains all day, we will have classes at school instead.","ja":"一日中雨なら、代わりに学校で授業をします。"},{"sp":"Teacher","en":"We will send a message to your family by eleven o'clock.","ja":"11時までにご家庭へ連絡します。"}],"items":[{"label":"問1(1)","kind":"select","qja":"体育祭は何時に始まりますか。","spokenQ":"Question one. What time will the sports day start?","choices":["At noon.","At eleven.","At one.","At nine."],"ans":2,"expl":"start at one in the afternoon。正午は登校時刻。","pts":2,"table":""},{"label":"問1(2)","kind":"blank","qja":"生徒は何をすべきですか。（　）内にそれぞれ1語の英語を書きなさい。","spokenQ":"Question two. What should the students do?","sent":"They should come to school at ___ and bring their ___.","blanks":["noon","lunch"],"expl":"come to school at noon と bring your lunch。your → their に直す。","pts":2,"table":""},{"label":"問1(3)","kind":"write","qja":"一日中雨なら生徒は何をしますか。6語以上の英語で答えなさい。","spokenQ":"Question three. What will the students do if it rains all day?","sample":"They will have classes at school instead.","expl":"instead まで書くとよい。we → they に直す。","pts":3,"minw":6,"table":""},{"label":"問2","kind":"write","qja":"あなたは雨の日にふだん何をしますか。5語以上の英語で書きなさい。","spokenQ":"Question. What do you usually do on a rainy day?","sample":"I usually read books at home.","expl":"usually を入れると習慣を表す自然な文になる。","pts":3,"minw":5,"table":""}]}]}];
+/* ===== 配点（本番20点にそろえる）=====
+   ここの4行を書きかえるだけで全21セットの配点が変わります。
+   b1〜b3 は各問の点数、b4 は問1(1)・問1(2)・問1(3)・問2 の順。
+   現在：問題1=1点×3=3／問題2=1点×2=2／問題3=2点×3=6／問題4=2+2+3+2=9　合計20点 */
+const PTS = { b1:1, b2:1, b3:2, b4:[2,2,3,2] };
+SETS.forEach(s => {
+  s.b[0].items.forEach(it => { it.pts = PTS.b1; });
+  s.b[1].items.forEach(it => { it.pts = PTS.b2; });
+  s.b[2].items.forEach(it => { it.pts = PTS.b3; });
+  s.b[3].items.forEach((it,i) => { it.pts = PTS.b4[i]; });
+});
+const FULLSET = SETS[0].b.reduce((a,b) => a + b.items.reduce((x,y) => x + y.pts, 0), 0);
+
+const LT = ["\u30A2","\u30A4","\u30A6","\u30A8"];
+const el = id => document.getElementById(id);
+
+/* ---------- 音声 ---------- */
+const synth = window.speechSynthesis || null;
+let voicesEn = [], token = 0;
+const vid = v => String((v && (v.voiceURI || v.name)) || "");
+let prefCache;
+function prefVoice(id){
+  if(prefCache === undefined){
+    try{ prefCache = JSON.parse(localStorage.getItem("fukuoka_listening_trial_v1") || "null") || {}; }
+    catch(e){ prefCache = {}; }
+  }
+  return prefCache[id] || "";
+}
+function showWarn(m){ el("warn").textContent = m; el("warn").classList.add("show"); }
+function hideWarn(){ el("warn").classList.remove("show"); }
+if(!synth) showWarn("このブラウザは音声の読み上げに対応していません。パソコンやAndroidはGoogle Chrome、iPhoneはSafariで開いてください。");
+
+function loadVoices(){
+  if(!synth) return;
+  let all = [];
+  try{ all = synth.getVoices() || []; }catch(e){ all = []; }
+  const found = all.filter(v => /^en/i.test(v.lang));
+  if(found.length === 0 && voicesEn.length > 0) return;
+  voicesEn = found;
+  ["vA","vB"].forEach((id,i) => {
+    const sel = el(id); if(!sel) return;
+    const cur = sel.value;
+    sel.innerHTML = "";
+    if(voicesEn.length === 0){
+      const o = document.createElement("option");
+      o.value = "-1"; o.textContent = "端末の標準の英語音声";
+      sel.appendChild(o); sel.value = "-1"; return;
+    }
+    voicesEn.forEach(v => {
+      const o = document.createElement("option");
+      o.value = vid(v); o.textContent = v.name + "（" + v.lang + "）";
+      sel.appendChild(o);
+    });
+    if(cur && cur !== "-1" && voicesEn.some(v => vid(v) === cur)){ sel.value = cur; }
+    else if(prefVoice(id) && voicesEn.some(v => vid(v) === prefVoice(id))){ sel.value = prefVoice(id); }
+    else{
+      const f = voicesEn.findIndex(v => /female|samantha|karen|zira|aria|jenny|ava|allison|moira|serena/i.test(v.name));
+      const m = voicesEn.findIndex(v => /male|daniel|alex|david|guy|ryan|fred|arthur|oliver/i.test(v.name));
+      const k = i === 0 ? (f >= 0 ? f : 0) : (m >= 0 ? m : (voicesEn.length > 1 ? 1 : 0));
+      sel.value = vid(voicesEn[k]);
+    }
+  });
+  if(voicesEn.length > 0) hideWarn();
+}
+if(synth){
+  synth.onvoiceschanged = loadVoices;
+  loadVoices();
+  let tries = 0;
+  const iv = setInterval(() => {
+    loadVoices();
+    if(voicesEn.length > 0){ clearInterval(iv); }
+    else if(++tries > 20){
+      clearInterval(iv);
+      showWarn("この端末に英語の読み上げ音声が見つかりません。音が出ない、または日本語のような発音で読まれる場合は、端末の設定で英語の音声を追加してください。" +
+        "（iPhone・iPad：設定→アクセシビリティ→読み上げコンテンツ→声→英語／Android：設定→システム→言語と入力→テキスト読み上げ→英語をダウンロード／Windows：設定→時刻と言語→音声認識）");
+    }
+  }, 400);
+}
+let primed = false;
+function prime(){
+  if(primed || !synth) return;
+  try{ const u = new SpeechSynthesisUtterance(" "); u.volume = 0; synth.speak(u); }catch(e){}
+  primed = true; setTimeout(loadVoices, 300);
+}
+document.addEventListener("touchstart", prime, {once:true});
+document.addEventListener("click", prime, {once:true});
+
+let wl = null;
+function keepAwake(on){
+  try{
+    if(on && "wakeLock" in navigator && !wl){
+      navigator.wakeLock.request("screen").then(l => { wl = l; l.addEventListener("release", () => { wl = null; }); }).catch(()=>{});
+    }else if(!on && wl){ wl.release().catch(()=>{}); wl = null; }
+  }catch(e){}
+}
+const wait = (ms, tk) => new Promise(res => {
+  const t = setInterval(() => { if(tk !== token){ clearInterval(t); res(); } }, 60);
+  setTimeout(() => { clearInterval(t); res(); }, ms);
+});
+function speakOne(text, who, tk){
+  return new Promise(res => {
+    if(tk !== token || !synth || !text) return res();
+    let u;
+    try{ u = new SpeechSynthesisUtterance(text); }catch(e){ return res(); }
+    const sel = el(who === 1 ? "vB" : "vA");
+    const want = sel ? sel.value : "";
+    const v = voicesEn.find(x => vid(x) === want) || voicesEn[0];
+    if(v){ u.voice = v; u.lang = v.lang; } else { u.lang = "en-US"; }
+    const rt = parseFloat(el("rate").value) || 0.95;
+    u.rate = rt;
+    u.pitch = who === 1 ? 0.9 : 1.05;
+    let done = false;
+    const fin = () => { if(!done){ done = true; res(); } };
+    u.onend = fin; u.onerror = fin;
+    setTimeout(fin, Math.max(4000, (text.length * 130) / rt + 1500));
+    try{ synth.speak(u); }catch(e){ fin(); }
+  });
+}
+let air = {bi:null, txt:"待機中", on:false};
+function paintAir(){
+  document.querySelectorAll(".air").forEach(a => {
+    const mine = air.bi !== null && Number(a.getAttribute("data-bi")) === air.bi;
+    a.classList.toggle("on", mine && air.on);
+    const t = a.querySelector(".airtxt");
+    if(t) t.textContent = mine ? air.txt : "待機中";
+  });
+}
+function stopAll(){
+  token++;
+  if(synth){ try{ synth.cancel(); }catch(e){} }
+  keepAwake(false);
+  air = {bi:null, txt:"待機中", on:false};
+  paintAir();
+}
+function whoOf(sp, lines){
+  const names = [];
+  lines.forEach(l => { if(names.indexOf(l.sp) < 0) names.push(l.sp); });
+  return names.indexOf(sp) === 1 ? 1 : 0;
+}
+async function broadcast(block, bi){
+  stopAll();
+  const tk = ++token;
+  keepAwake(true);
+  air = {bi:bi, txt:"放送中", on:true};
+  paintAir();
+  const say = s => { if(tk === token){ air = {bi:bi, txt:s, on:true}; paintAir(); } };
+  const readItem = async it => {
+    for(const l of (it.lines || [])){
+      if(tk !== token) return;
+      await speakOne(l.en, whoOf(l.sp, it.lines), tk);
+      await wait(320, tk);
+    }
+    if(it.spokenQ){ await wait(600, tk); await speakOne(it.spokenQ, 0, tk); }
+    if(block.speakChoices){
+      await wait(600, tk);
+      for(let ci = 0; ci < it.choices.length; ci++){
+        if(tk !== token) return;
+        await speakOne(it.choices[ci], 0, tk);
+        await wait(500, tk);
+      }
+    }
+    await wait(1100, tk);
+  };
+  if(block.repeatEach){
+    /* 問題2：小問ごとに続けて2回読む（本番と同じ） */
+    for(const it of block.items){
+      for(let k = 1; k <= block.reads; k++){
+        if(tk !== token) return;
+        say("放送中　" + it.label + "　" + k + "回目 / " + block.reads + "回");
+        await readItem(it);
+        if(k < block.reads) await wait(1200, tk);
+      }
+      await wait(1300, tk);
+    }
+  }else{
+    for(let r = 1; r <= block.reads; r++){
+      if(tk !== token) return;
+      say(block.reads === 1 ? "放送中" : "放送中　" + r + "回目 / " + block.reads + "回");
+      if(block.shared){
+        for(const l of block.shared){
+          if(tk !== token) return;
+          await speakOne(l.en, whoOf(l.sp, block.shared), tk);
+          await wait(320, tk);
+        }
+        for(const it of block.items){
+          if(tk !== token) return;
+          if(!it.spokenQ) continue;
+          await wait(800, tk);
+          await speakOne(it.spokenQ, 0, tk);
+          await wait(1000, tk);
+        }
+      }else{
+        for(const it of block.items){
+          if(tk !== token) return;
+          await readItem(it);
+        }
+      }
+      if(r < block.reads) await wait(1400, tk);
+    }
+  }
+  if(tk === token){ air = {bi:bi, txt:"放送終了", on:false}; paintAir(); keepAwake(false); }
+}
+
+/* ---------- 状態 ---------- */
+let cur = 0;
+const state = {};
+const scriptOpen = {};
+
+/* ---------- 保存（この端末のブラウザ内のみ） ---------- */
+const SKEY = "fukuoka_listening_trial_v1";
+let saveTimer = null, saveOK = true;
+function saveState(){
+  if(!saveOK) return;
+  try{
+    localStorage.setItem(SKEY, JSON.stringify({
+      v:1, cur:cur, state:state, scriptOpen:scriptOpen,
+      rate: el("rate").value,
+      hideCh: el("hideCh").checked,
+      vA: el("vA").value, vB: el("vB").value
+    }));
+  }catch(e){
+    saveOK = false;
+    const n = el("saveNote");
+    if(n) n.textContent = "※このブラウザでは解答を保存できません（リロードすると消えます）。";
+  }
+}
+function saveSoon(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveState, 400); }
+function loadState(){
+  let o = null;
+  try{ o = JSON.parse(localStorage.getItem(SKEY) || "null"); }
+  catch(e){ return; }
+  if(!o || o.v !== 1) return;
+  if(o.state) Object.keys(o.state).forEach(k => {
+    const s = o.state[k];
+    if(s && typeof s === "object"){
+      state[k] = {
+        picked: (typeof s.picked === "number" ? s.picked : null),
+        revealed: !!s.revealed,
+        text: String(s.text || ""),
+        self: (s.self === "o" || s.self === "d" || s.self === "x") ? s.self : null,
+        blanks: Array.isArray(s.blanks) ? [String(s.blanks[0] || ""), String(s.blanks[1] || "")] : ["",""]
+      };
+    }
+  });
+  if(o.scriptOpen) Object.keys(o.scriptOpen).forEach(k => { scriptOpen[k] = !!o.scriptOpen[k]; });
+  if(typeof o.cur === "number" && o.cur >= 0 && o.cur < SETS.length) cur = o.cur;
+  if(o.rate){ el("rate").value = o.rate; el("rateV").textContent = (parseFloat(o.rate) || 0.95).toFixed(2); }
+  if(o.hideCh) el("hideCh").checked = true;
+}
+function clearSaved(){ try{ localStorage.removeItem(SKEY); }catch(e){} }
+const key = (s,b,i) => s + "-" + b + "-" + i;
+function st(bi, ii){
+  const k = key(cur, bi, ii);
+  if(!state[k]) state[k] = {picked:null, revealed:false, text:"", self:null, blanks:["",""]};
+  return state[k];
+}
+function norm(s){
+  return String(s || "").toLowerCase().replace(/[.,!?"'\u2019]/g, "").replace(/\s+/g, " ").trim();
+}
+function okBlank(input, answer){
+  const a = String(answer).split("|").map(norm);
+  return a.indexOf(norm(input)) >= 0;
+}
+function countWords(s){
+  const t = String(s || "").trim();
+  if(!t) return 0;
+  return t.split(/\s+/).length;
+}
+
+/* ---------- 描画 ---------- */
+function render(){
+  const set = SETS[cur];
+  const app = el("app");
+  app.innerHTML = "";
+  set.b.forEach((block, bi) => {
+    const full = block.items.reduce((a,c) => a + c.pts, 0);
+    const card = document.createElement("div");
+    card.className = "block";
+    card.innerHTML =
+      '<div class="bhead"><span class="bno">' + block.no + '</span>' +
+      '<span class="btag">' + block.tag + '</span><span class="bpts">' + full + '点</span></div>' +
+      '<div class="bdesc">' + block.desc + '</div>' +
+      '<div class="air" data-bi="' + bi + '"><span class="lamp"></span>' +
+      '<button class="play">放送を聞く</button><button class="stop">停止</button>' +
+      '<span class="airtxt">待機中</span></div>' +
+      '<div class="qs"></div>' +
+      '<div class="bfoot"><button class="check primary">答え合わせ</button>' +
+      '<button class="toggleScript">放送文と解説</button>' +
+      '<button class="redo">解き直す</button><span class="score"></span></div>' +
+      '<div class="script"></div>';
+    const qs = card.querySelector(".qs");
+
+    block.items.forEach((it, ii) => {
+      const s = st(bi, ii);
+      const q = document.createElement("div");
+      q.className = "q";
+      q.innerHTML = '<div class="qtitle"><span class="qnum">' + it.label + '</span><span>' + it.qja + '</span></div>';
+
+      if(it.table){
+        const vd = document.createElement("div");
+        vd.className = "vis";
+        vd.innerHTML = '<div class="cap">問題用紙の資料</div>' + it.table;
+        q.appendChild(vd);
+      }
+
+      if(it.kind === "select"){
+        const hide = el("hideCh").checked && block.speakChoices;
+        if(hide){
+          const box = document.createElement("div");
+          box.className = "hidden-choices";
+          box.innerHTML = "<div>選択肢は放送だけで流れます。聞き取って記号を選びましょう。</div><div class=\"letters\"></div>";
+          const lts = box.querySelector(".letters");
+          it.choices.forEach((c, ci) => {
+            const b = document.createElement("button");
+            b.textContent = LT[ci];
+            b.setAttribute("aria-pressed", String(s.picked === ci));
+            if(s.revealed){
+              if(ci === it.ans) b.classList.add("correct");
+              else if(s.picked === ci) b.classList.add("wrong");
+            }
+            if(s.revealed) b.disabled = true;
+            b.onclick = () => { if(s.revealed) return; s.picked = ci; render(); };
+            lts.appendChild(b);
+          });
+          q.appendChild(box);
+        }else{
+          const box = document.createElement("div");
+          box.className = "choices";
+          it.choices.forEach((c, ci) => {
+            const b = document.createElement("button");
+            const isEn = /^[A-Za-z]/.test(c);
+            b.innerHTML = '<span class="lt">' + LT[ci] + '</span><span class="' + (isEn ? "en" : "") + '">' + c + '</span>';
+            b.setAttribute("aria-pressed", String(s.picked === ci));
+            if(s.revealed){
+              if(ci === it.ans){ b.classList.add("correct"); b.innerHTML += '<span class="mark ok">○</span>'; }
+              else if(s.picked === ci){ b.classList.add("wrong"); b.innerHTML += '<span class="mark">×</span>'; }
+            }
+            if(s.revealed) b.disabled = true;
+            b.onclick = () => { if(s.revealed) return; s.picked = ci; render(); };
+            box.appendChild(b);
+          });
+          q.appendChild(box);
+        }
+      }else if(it.kind === "extract"){
+        const box = document.createElement("div");
+        box.className = "extract";
+        box.appendChild(document.createTextNode("答え"));
+        const inp = document.createElement("input");
+        inp.type = "text";
+        inp.value = s.blanks[0] || "";
+        inp.placeholder = "表や図から抜き出して書く";
+        inp.setAttribute("aria-label", "答え");
+        inp.oninput = () => { s.blanks[0] = inp.value; saveSoon(); };
+        if(s.revealed){
+          inp.disabled = true;
+          inp.classList.add(okBlank(inp.value, it.answer) ? "correct" : "wrong");
+        }
+        box.appendChild(inp);
+        q.appendChild(box);
+        if(s.revealed){
+          const a = document.createElement("div");
+          a.className = "bansw";
+          a.innerHTML = "正解：<span class=\"en\">" + String(it.answer).split("|")[0] + "</span>";
+          q.appendChild(a);
+        }
+      }else if(it.kind === "blank"){
+        const line = document.createElement("div");
+        line.className = "blankline";
+        const parts = it.sent.split("___");
+        parts.forEach((p, pi) => {
+          line.appendChild(document.createTextNode(p));
+          if(pi < parts.length - 1){
+            const inp = document.createElement("input");
+            inp.type = "text";
+            inp.value = s.blanks[pi] || "";
+            inp.setAttribute("aria-label", "空所" + (pi + 1));
+            inp.oninput = () => { s.blanks[pi] = inp.value; saveSoon(); };
+            if(s.revealed){
+              inp.disabled = true;
+              inp.classList.add(okBlank(inp.value, it.blanks[pi]) ? "correct" : "wrong");
+            }
+            line.appendChild(inp);
+          }
+        });
+        q.appendChild(line);
+        if(s.revealed){
+          const a = document.createElement("div");
+          a.className = "bansw";
+          a.innerHTML = "正解：" + it.blanks.map(x => '<span class="en">' + String(x).split("|")[0] + '</span>').join(" ／ ");
+          q.appendChild(a);
+        }
+      }else{
+        const ta = document.createElement("textarea");
+        ta.placeholder = "英語で書いてみましょう";
+        ta.value = s.text;
+        const wc = document.createElement("div");
+        wc.className = "wc";
+        const upd = () => {
+          const n = countWords(ta.value);
+          wc.textContent = n + " 語（" + it.minw + "語以上）";
+          wc.className = "wc" + (n > 0 && n < it.minw ? " ng" : "");
+        };
+        ta.oninput = () => { s.text = ta.value; upd(); saveSoon(); };
+        if(s.revealed) ta.readOnly = true;
+        upd();
+        q.appendChild(ta);
+        q.appendChild(wc);
+        if(s.revealed){
+          const sm = document.createElement("div");
+          sm.className = "sample";
+          sm.innerHTML = '解答例：<span class="en">' + it.sample + "</span>";
+          q.appendChild(sm);
+          const g = document.createElement("div");
+          g.className = "selfg";
+          g.innerHTML = "<span>解答例と見くらべて自己採点（" + it.pts + "点）</span>";
+          [["o","○",it.pts], ["d","△",Math.floor(it.pts / 2)], ["x","×",0]].forEach(v => {
+            const b = document.createElement("button");
+            b.textContent = v[1] + " " + v[2] + "点";
+            b.setAttribute("aria-pressed", String(s.self === v[0]));
+            b.onclick = () => { s.self = v[0]; render(); };
+            g.appendChild(b);
+          });
+          q.appendChild(g);
+        }
+      }
+      qs.appendChild(q);
+    });
+
+    card.querySelector(".play").onclick = () => broadcast(block, bi);
+    card.querySelector(".stop").onclick = stopAll;
+    const sc = card.querySelector(".script");
+    sc.innerHTML = buildScript(block);
+    const sk = cur + "-" + bi;
+    const allRev = block.items.every((_, ii) => st(bi, ii).revealed);
+    if(scriptOpen[sk]) sc.classList.add("show");
+    if(allRev) card.querySelector(".score").textContent = blockScore(block, bi) + " / " + full + " 点";
+    card.querySelector(".check").onclick = () => {
+      block.items.forEach((_, ii) => { st(bi, ii).revealed = true; });
+      scriptOpen[sk] = true;
+      render();
+    };
+    card.querySelector(".toggleScript").onclick = () => {
+      scriptOpen[sk] = !sc.classList.contains("show");
+      sc.classList.toggle("show");
+      saveState();
+    };
+    const redo = card.querySelector(".redo");
+    redo.disabled = !allRev;
+    redo.onclick = () => {
+      block.items.forEach((_, ii) => { delete state[key(cur, bi, ii)]; });
+      scriptOpen[sk] = false;
+      render();
+    };
+    app.appendChild(card);
+  });
+  paintAir();
+  updateTotal();
+  saveState();
+}
+
+function lineHtml(l){
+  return '<div class="sline"><div class="sp">' + l.sp + '</div><div><div class="en">' + l.en + '</div><div class="ja">' + l.ja + '</div></div></div>';
+}
+function buildScript(block){
+  let h = "<h3>放送文（スクリプト）と解説</h3>";
+  if(block.shared){
+    h += block.shared.map(lineHtml).join("");
+    block.items.forEach(it => {
+      if(it.spokenQ) h += lineHtml({sp:it.label, en:it.spokenQ, ja:it.qja});
+    });
+  }else{
+    block.items.forEach(it => {
+      h += '<div class="sline"><div class="sp">' + it.label + '</div><div>' +
+           (it.lines || []).map(l => '<div class="en">' + l.en + '</div><div class="ja">' + l.ja + '</div>').join("");
+      if(it.spokenQ) h += '<div class="en" style="margin-top:4px">' + it.spokenQ + "</div>";
+      if(block.speakChoices) h += '<div class="en" style="margin-top:4px">' + it.choices.map((c,ci) => LT[ci] + " " + c).join("　／　") + "</div>";
+      h += "</div></div>";
+    });
+  }
+  h += '<div class="ans">';
+  block.items.forEach((it, ii) => {
+    if(it.kind === "select"){
+      h += "<div>" + it.label + "　正解 <b>" + LT[it.ans] + "</b><br><span style=\"color:var(--muted)\">" + it.expl + "</span></div>";
+    }else if(it.kind === "extract"){
+      h += "<div>" + it.label + "　正解 <b class=\"en\">" + String(it.answer).split("|")[0] +
+           "</b><br><span style=\"color:var(--muted)\">" + it.expl + "</span></div>";
+    }else if(it.kind === "blank"){
+      h += "<div>" + it.label + "　正解 <b>" + it.blanks.map(x => String(x).split("|")[0]).join(" / ") +
+           "</b><br><span class=\"en\">" + it.sent.replace(/___/g, "（　）") + "</span><br><span style=\"color:var(--muted)\">" + it.expl + "</span></div>";
+    }else{
+      h += "<div>" + it.label + "　解答例：<span class=\"en\">" + it.sample + "</span><br><span style=\"color:var(--muted)\">" + it.expl + "</span></div>";
+    }
+    if(ii < block.items.length - 1) h += '<div style="height:8px"></div>';
+  });
+  return h + "</div>";
+}
+function blockScore(block, bi){
+  let got = 0;
+  block.items.forEach((it, ii) => {
+    const s = st(bi, ii);
+    if(!s.revealed) return;
+    if(it.kind === "select"){ if(s.picked === it.ans) got += it.pts; }
+    else if(it.kind === "extract"){ if(okBlank(s.blanks[0], it.answer)) got += it.pts; }
+    else if(it.kind === "blank"){
+      const per = it.pts / it.blanks.length;
+      it.blanks.forEach((a, i) => { if(okBlank(s.blanks[i], a)) got += per; });
+    }else{
+      if(s.self === "o") got += it.pts;
+      else if(s.self === "d") got += Math.floor(it.pts / 2);
+    }
+  });
+  return Math.round(got * 10) / 10;
+}
+function updateTotal(){
+  const set = SETS[cur];
+  let got = 0, full = 0, done = 0, all = 0, pending = 0;
+  set.b.forEach((b, bi) => {
+    full += b.items.reduce((a,c) => a + c.pts, 0);
+    got += blockScore(b, bi);
+    b.items.forEach((it, ii) => {
+      all++;
+      const s = st(bi, ii);
+      if(s.revealed){ done++; if(it.kind === "write" && !s.self) pending++; }
+    });
+  });
+  let msg = "セット" + String(cur + 1).padStart(2, "0") + "　" + got + " / " + full + " 点";
+  if(done < all) msg += "（採点済み " + done + "/" + all + " 問）";
+  if(pending > 0) msg += "　記述 " + pending + " 問が自己採点まちです";
+  let fin = 0;
+  SETS.forEach((_, i) => { if(setDone(i)) fin++; });
+  msg += "　｜　終了 " + fin + "/" + SETS.length + " セット";
+  el("totalTxt").textContent = msg;
+  const sel = el("setSel");
+  if(sel && sel.options.length === SETS.length){
+    SETS.forEach((x, i) => {
+      sel.options[i].textContent = "セット" + String(i + 1).padStart(2, "0") + "　" + x.t + (setDone(i) ? "　済" : "");
+    });
+  }
+}
+
+/* ---------- 操作 ---------- */
+function setDone(si){
+  let all = 0, rev = 0;
+  SETS[si].b.forEach((b, bi) => b.items.forEach((_, ii) => {
+    all++;
+    const s = state[key(si, bi, ii)];
+    if(s && s.revealed) rev++;
+  }));
+  return rev === all;
+}
+function buildSetSel(){
+  const s = el("setSel");
+  s.innerHTML = "";
+  SETS.forEach((x, i) => {
+    const o = document.createElement("option");
+    o.value = String(i);
+    o.textContent = "セット" + String(i + 1).padStart(2, "0") + "　" + x.t + (setDone(i) ? "　済" : "");
+    s.appendChild(o);
+  });
+  s.value = String(cur);
+}
+function go(i){
+  stopAll();
+  cur = (i + SETS.length) % SETS.length;
+  buildSetSel(); render(); window.scrollTo(0, 0);
+}
+el("setSel").onchange = e => go(Number(e.target.value));
+el("prev").onclick = () => go(cur - 1);
+el("next").onclick = () => go(cur + 1);
+el("rand").onclick = () => go(Math.floor(Math.random() * SETS.length));
+el("rate").oninput = e => { el("rateV").textContent = parseFloat(e.target.value).toFixed(2); saveSoon(); };
+el("hideCh").onchange = render;
+el("vA").onchange = saveState;
+el("vB").onchange = saveState;
+el("test").onclick = () => { stopAll(); const tk = ++token; speakOne("Hello. Can you hear me clearly?", 0, tk); };
+el("resetAll").onclick = () => {
+  if(!window.confirm("全21セットの解答と点数を消して、最初からやり直します。よろしいですか。")) return;
+  stopAll();
+  Object.keys(state).forEach(k => delete state[k]);
+  Object.keys(scriptOpen).forEach(k => delete scriptOpen[k]);
+  clearSaved();
+  render(); window.scrollTo(0, 0);
+};
+
+loadState();
+buildSetSel();
+render();
+</script>
+</html>
